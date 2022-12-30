@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+.seet{
+	width: 60px;
+	height: 60px;
+	margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.test{
+    background-color: greenyellow;
+}
+
+.test:hover{
+    background-color: green;
+}
+
+.clicked{
+    background-color: aqua;
+}
+
+.test2{
+    background-color: red;
+}
+
+#creditButton:hover{
+	backgroud-color: #ff5220;
+	color: white;
+}
+
+#cmtWriteButton{
+
+	width:200px;
+	height:40px;
+	
+}
+
+#cmtWriteButton:hover{
+	
+	backgroud-color: #ff5220;
+	color: white;
+	
+}
+
+.forCheck{
+	width: 60px;
+	height: 60px;
+	margin-bottom: 5px;
+    margin-right: 5px;
+}

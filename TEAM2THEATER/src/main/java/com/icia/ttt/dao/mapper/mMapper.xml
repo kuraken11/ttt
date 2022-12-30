@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+
+<!--  회원가입  -->
+<insert id="mJoin" parameterType="member"> INSERT INTO MEMBER VALUES(#{memId},#{memPw},#{memName},#{memBirth},#{memPhone},#{memEmail},#{memTheater1, jdbcType=VARCHAR},#{memTheater2, jdbcType=VARCHAR}) </insert>
+<!--  아이디확인  -->
+<select id="idCheck" parameterType="String" resultType="String"> SELECT MEMID FROM MEMBER WHERE MEMID = #{memId} </select>
+<!-- 로그인  -->
+<select id="mLogin" parameterType="member" resultType="String"> SELECT MEMPW FROM MEMBER WHERE MEMID = #{memId} </select>
+<!-- 회원정보확인  -->
+<select id="mView" parameterType="String" resultType="member"> SELECT * FROM MEMBER WHERE MEMID = #{memId} </select>
+<!--  비밀번호 변경  -->
+<update id="mPwchan" parameterType="member"> UPDATE MEMBER SET MEMPW = #{memPw} WHERE MEMID = #{memId} </update>
+<!--  회원수정업데이트  -->
+<update id="mPwChange" parameterType="member"> UPDATE MEMBER SET MEMPW = #{memPw} WHERE MEMID = #{memId} </update>
+<!-- 회원정보변경  -->
+<update id="mModify" parameterType="member"> UPDATE MEMBER SET MEMPW = #{memPw} , MEMNAME = #{memName} , MEMBIRTH = #{memBirth}, MEMPHONE = #{memPhone}, MEMEMAIL = #{memEmail}, MEMTHEATER1 = #{memTheater1} , MEMTHEATER2 = #{memTheater2} WHERE MEMID = #{memId} </update>
+<!--  회원삭제  -->
+<delete id="mDelete" parameterType="String"> DELETE FROM MEMBER WHERE MEMID = #{memId} </delete>
+<!--  회원목록  -->
+<select id="mList" resultType="member"> SELECT * FROM MEMBER </select>
+<!-- 티켓확인리스트  -->
+<select id="Ticketing" resultType="reser"> SELECT * FROM RESERVATION </select>
+<!--  개인 티켓리스트  -->
+<select id="myTicket" parameterType="String" resultType="reser"> SELECT * FROM RESERVATION WHERE RES_ID = #{mem_Id} </select>
+	
+</mapper>

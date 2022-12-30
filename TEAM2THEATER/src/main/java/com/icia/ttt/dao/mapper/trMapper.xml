@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TheateR">
+
+<!--  정보 불러오기  -->
+<select id="trDate" parameterType="theater" resultType="theater"> SELECT * FROM THEATER WHERE THE_DAY = #{the_Day} AND THE_LOC2 = #{the_Loc2} </select>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Movie">
+<!--  영화목록 - 박스오피스  -->
+<select id="mvList" resultType="movie"> SELECT * FROM MOVIE WHERE MV_NOTICE = 1 </select>
+<!--  영화목록 - 상영예정작  -->
+<select id="csList" resultType="movie"> SELECT * FROM MOVIE WHERE MV_NOTICE = 0 </select>
+<!--  게시글 등록  -->
+<insert id="mvWrite" parameterType="movie"> INSERT INTO MOVIEPOST VALUES(MP_SEQ.NEXTVAL, #{mp_Id}, #{mp_PosterName}, #{mp_Content}, #{mp_Mvname}, 0, SYSDATE, #{mp_Title}) </insert>
+<!--  좋아요  -->
+<update id="mvLike" parameterType="movie">UPDATE MOVIE SET MV_LIKE = #{mv_Like} +1 WHERE MV_NAME= #{mv_Name} </update>
+<!--  상세보기  -->
+<select resultType="movie" id="mvInfo" parameterType="String"> SELECT * FROM MOVIE WHERE MV_NAME = #{mv_Name} </select>
+<!--  좋아요 아이디 체크  -->
+<select id="mlCheck" parameterType="movielike" resultType="String"> SELECT ML_ID FROM MOVIELIKE WHERE ML_ID = #{ml_Id} AND ML_MOVIE = #{ml_Movie} </select>
+<!--  좋아요 올리기  -->
+<insert id="movieLikeUp" parameterType="movielike"> INSERT INTO MOVIELIKE VALUES (#{ml_Movie},#{ml_Id}) </insert>
+<!--  좋아요 내리기  -->
+<delete id="movieLikeDown" parameterType="movielike"> DELETE FROM MOVIELIKE WHERE ML_ID = #{ml_Id} AND ML_MOVIE = #{ml_Movie} </delete>
+<!--  좋아요 갯수 출력  -->
+<select id="movieLikeCount" resultType="int"> SELECT COUNT(*) FROM MOVIELIKE WHERE ML_MOVIE = #{ml_Movie} </select>
+<!--  영화순위 카운트  -->
+<select id="mvCount" resultType="movie"> SELECT max(mv_res) FROM movie </select>
+<!-- 최고순위 영화 링크 -->
+<select id="mvRes" resultType="movie"> select mv_review from movie where mv_res = #{mvCount} </select>
+<!--  게시글 목록  -->
+<select id="mvpostList" resultType="moviepost"> SELECT * FROM MOVIEPOST ORDER BY MP_SEQ DESC </select>
+<!--  게시글 상세보기  -->
+<select id="mvView" resultType="moviepost" parameterType="int"> SELECT * FROM MOVIEPOST WHERE MP_SEQ = #{mp_Seq} </select>
+<!--  게시글 삭제  -->
+<delete id="mvDelete" parameterType="int"> DELETE FROM MOVIEPOST WHERE MP_SEQ = #{mp_Seq} </delete>
+<!--  게시글 수정  -->
+<update id="mvModify" parameterType="moviepost"> UPDATE MOVIEPOST SET MP_ID = #{mp_Id}, MP_POSTERNAME = #{mp_PosterName}, MP_CONTENT = #{mp_Content}, MP_MVNAME = #{mp_Mvname, jdbcType=VARCHAR}, MP_TITLE = #{mp_Title} WHERE MP_SEQ = #{mp_Seq} </update>
+</mapper>

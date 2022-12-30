@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Comment">
+<!--  댓글 불러오기  -->
+<select id="cList" parameterType="String" resultType="comment"> SELECT * FROM COMMENTS WHERE cmt_Mvname = #{cmt_Mvname} </select>
+
+<insert id="cmtWrite" parameterType="comment"> INSERT INTO COMMENTS VALUES(#{cmt_Id}, #{cmt_Comment}, #{cmt_Mvname}, 0,#{cmt_Point}, SYSDATE) </insert>
+
+<delete id="cmtDelete" parameterType="comment"> DELETE FROM COMMENTS WHERE cmt_Mvname= #{cmt_Mvname} AND cmt_Id = #{cmt_Id} </delete>
+
+<update id="cmtModify" parameterType="comment"> UPDATE COMMENTS SET cmt_Comment = #{cmt_Comment} WHERE cmt_Mvname= #{cmt_Mvname} AND cmt_Id = #{cmt_Id} </update>
+
+<!--  댓글 아이디 중복확인  -->
+<select id="cmtCheck" parameterType="comment" resultType="String"> SELECT CMT_ID FROM COMMENTS WHERE cmt_Mvname = #{cmt_Mvname} AND cmt_Id = #{cmt_Id} </select>
+
+<!--  댓글 좋아요 누른 아이디 확인  -->
+<select id="cmtLikeCheck" parameterType="commentlike" resultType="String"> SELECT CL_ID FROM COMMENTLIKE WHERE cl_cmtId = #{cl_CmtId} AND cl_movie = #{cl_Movie} AND cl_Id = #{cl_Id} </select>
+
+<!--  좋아요 댓글 좋아요 올리기  -->
+<insert id="cmtLikeUp" parameterType="commentlike"> INSERT INTO COMMENTLIKE VALUES(#{cl_CmtId},#{cl_Movie},#{cl_Id}) </insert>
+
+<!--  좋아요 댓글 좋아요 내리기  -->
+<delete id="cmtLikeDown" parameterType="commentlike"> DELETE FROM COMMENTLIKE WHERE cl_cmtId = #{cl_CmtId} AND cl_movie = #{cl_Movie} AND cl_Id = #{cl_Id} </delete>
+
+<!--  댓글 좋아요 갯수 구하기  -->
+<select id="cmtLikeNum" parameterType="commentlike" resultType="int"> SELECT COUNT(*) FROM COMMENTLIKE WHERE cl_cmtId = #{cl_CmtId} AND cl_movie = #{cl_Movie} </select>
+</mapper>
